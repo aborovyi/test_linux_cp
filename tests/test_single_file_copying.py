@@ -186,5 +186,5 @@ def test_dst_exists_if_dst_copied_as_absolute(vfs):
     path
     """
     dst_path = (vfs.root_dir / "dstA").absolute()
-    code, *_ = vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
+    vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
     assert dst_path.exists()
