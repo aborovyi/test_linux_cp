@@ -67,9 +67,11 @@ Default testing structure should be the following:
       [X] Mask applies -> files under the mask are copied
       [X] Mask doesn't apply -> no files are copied
 
-    [ ] Copy directory to directory
-      [ ] Copy directory to existing directory -> success
-      [ ] Copy directory to non-existing directory -> failure
+    [X] Copy directory to directory
+      [X] Copy directory to existing directory with -r -> success
+      [X] Copy directory to existing directory skipping -r -> failure
+      [X] Copy directory to non-existing directory with -r-> success
+      [X] Copy directory to non-existing directory skipping -r-> failure
 
 [ ] Single-flag cases
 
