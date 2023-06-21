@@ -48,13 +48,12 @@ Default testing structure should be the following:
         [X] below directory
     [X] Copy single file by dst absolute path
 
-    [ ] Copy single file to destination directory
-      |Done | Src File | DST Dir | DST file | Result               |
-      |-----|----------|---------|----------|----------------------|
-      | [ ] | exists   | exists  | missing  | src appears in dst   |
-      | [ ] | exists   | exists  | exists   | src replaces dst     |
-      | [ ] | exists   | missing | N/A      | cp reports error     |
-      | [ ] | missing  | missing | N/A      | cp reports error     |
+    [X] Copy single file to destination directory
+      |Done | Src File | DST Dir | DST file  | Result               |
+      |-----|----------|---------|-----------|----------------------|
+      | [X] | exists   | exists  | skipped   | src appears in dst   |
+      | [X] | exists   | exists  | indicated | src appears in dst   |
+      | [X] | exists   | missing | N/A       | cp reports error     |
 
     [ ] Copy multiple files by explicit names to destination dir
       | Done| SrcA    | SrcB    | DstA    | DstB    | Result               |
@@ -68,6 +67,10 @@ Default testing structure should be the following:
     [ ] Copy multiple files by mask to destination dir:
       [ ] Mask applies -> files under the mask are copied
       [ ] Mask doesn't apply -> no files are copied
+
+    [ ] Copy directory to directory
+      [ ] Copy directory to existing directory -> success
+      [ ] Copy directory to non-existing directory -> failure
 
 [ ] Single-flag cases
 

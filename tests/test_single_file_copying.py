@@ -188,3 +188,68 @@ def test_dst_exists_if_dst_copied_as_absolute(vfs):
     dst_path = (vfs.root_dir / "dstA").absolute()
     vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
     assert dst_path.exists()
+
+
+def test_code_file_copied_to_directory_with_no_name(vfs):
+    """
+    Verify cp returns code 0 if file is copied to the directory no name is
+    specified
+    """
+    dst_dir = vfs.root_dir / "DstDir"
+    dst_dir.mkdir(exist_ok=True)
+    code, *_ = vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}/")
+    assert code == 0
+
+
+def test_dst_exists_file_copied_to_directory_with_no_name(vfs):
+    """
+    Verify cp creates a file if file is copied to the directory no name is
+    specified
+    """
+    dst_dir = vfs.root_dir / "DstDir"
+    dst_dir.mkdir(exist_ok=True)
+    vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}/")
+    assert (dst_dir / vfs.srcA.name).exists()
+
+
+def test_code_file_copied_to_directory_with_name(vfs):
+    """
+    Verify cp returns code 0 if file is copied to the directory no name is
+    specified
+    """
+    dst_file = vfs.root_dir / "DstDir" / "dstA"
+    dst_file.parent.mkdir(parents=True, exist_ok=True)
+    code, *_ = vfs.call_copy(src=vfs.srcA, dst=dst_file)
+    assert code == 0
+
+
+def test_dst_exists_file_copied_to_directory_with_name(vfs):
+    """
+    Verify cp creates a file if file is copied to the directory no name is
+    specified
+    """
+    dst_file = vfs.root_dir / "DstDir" / "dstA"
+    dst_file.parent.mkdir(parents=True, exist_ok=True)
+    vfs.call_copy(src=vfs.srcA, dst=dst_file)
+    assert dst_file.exists()
+
+
+def test_code_error_on_missing_dst_dir(vfs):
+    """
+    Verify cp returns a code 1 on error if destination directory doesn't exist
+    """
+    dst_dir = vfs.root_dir / "temp_dir"
+    code, *_ = vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}/")
+    assert code == 1
+
+
+def test_msg_error_on_missing_dst_dir(vfs):
+    """
+    Verify cp error message if destination directory doesn't exist
+    """
+    dst_dir = vfs.root_dir / "temp_dir"
+    *_, stderr = vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}/")
+    assert stderr == bytes(
+        f"cp: cannot create regular file '{dst_dir}/': Not a directory\n",
+        encoding="utf-8",
+    )

@@ -56,10 +56,11 @@ class DirStructure:
             src = str(src)
         if not isinstance(dst, str):
             dst = str(dst)
+        cmd = " ".join(
+            [f"cd {self.root_dir.absolute()};cp", flags, src, dst]
+        ).strip()
         subp = subprocess.run(
-            " ".join(
-                [f"cd {self.root_dir.absolute()};cp", flags, src, dst]
-            ).strip(),
+            cmd,
             capture_output=True,
             shell=True,
             check=False,
