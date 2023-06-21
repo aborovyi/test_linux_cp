@@ -25,8 +25,8 @@ class DirStructure:
     def __init__(self, root_dir: Path):
         self.root_dir = root_dir
 
-        for f, cnt in self.files_and_content:
-            f_path = Path(self.root_dir) / f
+        for file, cnt in self.files_and_content:
+            f_path = Path(self.root_dir) / file
             f_path.parent.mkdir(parents=True, exist_ok=True)
             f_path.write_text(cnt)
             self.__setattr__(f_path.name, f_path)
