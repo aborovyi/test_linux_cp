@@ -4,14 +4,8 @@ section "No flags"
 
 Directory structure here is as follows:
     .
-    ├── DstDir
     ├── srcA
-    ├── srcB
-    ├── SrcDir
-    │   ├── srcC
-    │   └── SrcSubDir
-    │       └── srcD
-    └── srcLnk -> srcA
+    └── SrcDir
 """
 import pytest
 
@@ -192,7 +186,7 @@ def test_dst_exists_if_dst_copied_as_absolute(vfs):
 
 def test_code_file_copied_to_directory_with_no_name(vfs):
     """
-    Verify cp returns code 0 if file is copied to the directory no name is
+    Verify cp returns code 0 if file is copied to the directory, no name is
     specified
     """
     dst_dir = vfs.root_dir / "DstDir"
@@ -203,12 +197,34 @@ def test_code_file_copied_to_directory_with_no_name(vfs):
 
 def test_dst_exists_file_copied_to_directory_with_no_name(vfs):
     """
-    Verify cp creates a file if file is copied to the directory no name is
+    Verify cp creates a file if file is copied to the directory, no name is
     specified
     """
     dst_dir = vfs.root_dir / "DstDir"
     dst_dir.mkdir(exist_ok=True)
     vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}/")
+    assert (dst_dir / vfs.srcA.name).exists()
+
+
+def test_code_file_copied_to_directory_wo_slash(vfs):
+    """
+    Verify cp returns code 0 if file is copied to the directory that doesn't
+    end, with slash destination filename is not specified.
+    """
+    dst_dir = vfs.root_dir / "DstDir"
+    dst_dir.mkdir(exist_ok=True)
+    code, *_ = vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}")
+    assert code == 0
+
+
+def test_dst_exists_file_copied_to_directory_wo_slash(vfs):
+    """
+    Verify cp creates a file if file is copied to the directory that doesn't
+    end, with slash destination filename is not specified.
+    """
+    dst_dir = vfs.root_dir / "DstDir"
+    dst_dir.mkdir(exist_ok=True)
+    vfs.call_copy(src=vfs.srcA, dst=f"{dst_dir}")
     assert (dst_dir / vfs.srcA.name).exists()
 
 
