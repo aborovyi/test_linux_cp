@@ -37,10 +37,10 @@ Default testing structure should be the following:
       | [X] | missing  | missing     | cp reports error (covered in syntax) |
       | [X] | missing  | exists      | cp reports error (covered in syntax) |
 
-    [ ] Copy single file by src relative path:
-        [ ] this directory
-        [ ] above directory
-        [ ] below directory
+    [X] Copy single file by src relative path:
+        [X] this directory
+        [X] above directory
+        [X] below directory
     [ ] Copy single file by src absolute path
     [ ] Copy single file by dst relative path
         [ ] this directory
