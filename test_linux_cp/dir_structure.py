@@ -53,7 +53,9 @@ class DirStructure:
         Run system `cp` app.
         """
         subp = subprocess.run(
-            " ".join([f"cd {self.root_dir.absolute()};cp", flags, src, dst]).strip(),
+            " ".join(
+                [f"cd {self.root_dir.absolute()};cp", flags, src, dst]
+            ).strip(),
             capture_output=True,
             shell=True,
             check=False,

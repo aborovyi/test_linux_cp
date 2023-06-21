@@ -1,20 +1,20 @@
 # Functional tests for cp command
 
-    All testing should be performed in the temporal directory. `cp` command
-    is expected to be installed system-wide.
+All testing should be performed in the temporal directory. `cp` command
+is expected to be installed system-wide.
 
-    Default testing structure should be the following:
-    ```
-        .
-        ├── DstDir
-        ├── srcA
-        ├── srcB
-        ├── SrcDir
-        │   ├── srcC
-        │   └── SrcSubDir
-        │       └── srcD
-        └── srcLnk -> srcA
-    ```
+Default testing structure should be the following:
+```
+    .
+    ├── DstDir
+    ├── srcA
+    ├── srcB
+    ├── SrcDir
+    │   ├── srcC
+    │   └── SrcSubDir
+    │       └── srcD
+    └── srcLnk -> srcA
+```
 
 
 [X] Exit code:
@@ -28,14 +28,14 @@
 [ ] No flags:
 
     [ ] Copy single file to destination file
-      |Done | Src File | Destination | Result                      |
-      |-----|----------|-------------|-----------------------------|
-      | [ ] | exists   | missing     | source as destination file  |
-      | [ ] | exists, not readable   | missing     | cp reports error |
-      | [ ] | exists   | exists      | source replaces destination |
-      | [ ] | exists   | exists, not readable      | cp reports error |
-      | [ ] | missing  | missing     | cp reports error            |
-      | [ ] | missing  | exists      | cp reports error            |
+      |Done | Src File | Destination | Result                               |
+      |-----|----------|-------------|--------------------------------------|
+      | [X] | exists   | missing     | source as destination file           |
+      | [X] | exists, not readable   | missing      | cp reports error      |
+      | [X] | exists   | exists      | source replaces destination          |
+      | [X] | exists   | exists, not writeable      | cp reports error      |
+      | [X] | missing  | missing     | cp reports error (covered in syntax) |
+      | [X] | missing  | exists      | cp reports error (covered in syntax) |
 
     [ ] Copy single file by src relative path:
         [ ] this directory
