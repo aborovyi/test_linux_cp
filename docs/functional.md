@@ -55,18 +55,17 @@ Default testing structure should be the following:
       | [X] | exists   | exists  | indicated | src appears in dst   |
       | [X] | exists   | missing | N/A       | cp reports error     |
 
-    [ ] Copy multiple files by explicit names to destination dir
-      | Done| SrcA    | SrcB    | DstA    | DstB    | Result               |
-      |-----|---------|---------|---------|---------|----------------------|
-      | [ ] | exists  | exists  | missing | missing | Srcs appears as Dsts |
-      | [ ] | exists  | exists  | exists  | missing | Srcs appears as Dsts |
-      | [ ] | exists  | exists  | exists  | exists  | Srcs appears as Dsts |
-      | [ ] | exists  | missing | missing | missing | cp reports an error  |
-      | [ ] | missing | exists  | missing | missing | cp reports an error  |
+    [X] Copy multiple files by explicit names to destination dir
+      | Done| SrcA    | SrcB    | DstDir  |  Result               |
+      |-----|---------|---------|---------|-----------------------|
+      | [X] | exists  | exists  | exists  |  Srcs appears as Dsts |
+      | [X] | exists  | exists  | missing |  cp reports an error  |
+      | [X] | exists  | missing | missing |  cp reports an error  |
+      | [X] | missing | exists  | missing |  cp reports an error  |
 
-    [ ] Copy multiple files by mask to destination dir:
-      [ ] Mask applies -> files under the mask are copied
-      [ ] Mask doesn't apply -> no files are copied
+    [X] Copy multiple files by mask to destination dir:
+      [X] Mask applies -> files under the mask are copied
+      [X] Mask doesn't apply -> no files are copied
 
     [ ] Copy directory to directory
       [ ] Copy directory to existing directory -> success
