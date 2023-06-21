@@ -13,6 +13,7 @@ Directory structure here is as follows:
     │       └── srcD
     └── srcLnk -> srcA
 """
+import pytest
 
 
 def test_src_exists_dst_missing_same_dir(vfs):
@@ -87,3 +88,37 @@ def test_msg_if_src_doesnt_replace_not_readable_dst(vfs):
     assert (
         stderr == b"cp: cannot create regular file 'dstA': Permission denied\n"
     )
+
+
+@pytest.mark.parametrize(
+    "path_prefix",
+    [".", "..", "SrcDir"],
+    ids=["this dir", "parent dir", "child dir"],
+)
+def test_code_if_src_copied_as_relative(vfs, path_prefix):
+    """
+    Verify cp returns status code 0 if src is copied as relative
+    path
+    """
+    src_path = f"{path_prefix}/srcA"
+    src_file = vfs.root_dir / path_prefix / "srcA"
+    src_file.write_text("Thanks for all the fish!")
+    code, *_ = vfs.call_copy(src=src_path, dst="dstA")
+    assert code == 0
+
+
+@pytest.mark.parametrize(
+    "path_prefix",
+    [".", "..", "SrcDir"],
+    ids=["this dir", "parent dir", "child dir"],
+)
+def test_dst_exists_if_src_copied_as_relative(vfs, path_prefix):
+    """
+    Verify cp returns status code 0 if src is copied as relative
+    path
+    """
+    src_path = f"{path_prefix}/srcA"
+    src_file = vfs.root_dir / path_prefix / "srcA"
+    src_file.write_text("Thanks for all the fish!")
+    vfs.call_copy(src=src_path, dst="dstA")
+    assert (vfs.root_dir / "dstA").exists()

@@ -27,7 +27,7 @@ Default testing structure should be the following:
 
 [ ] No flags:
 
-    [ ] Copy single file to destination file
+    [X] Copy single file to destination file
       |Done | Src File | Destination | Result                               |
       |-----|----------|-------------|--------------------------------------|
       | [X] | exists   | missing     | source as destination file           |
