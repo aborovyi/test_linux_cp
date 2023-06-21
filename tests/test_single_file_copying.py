@@ -139,3 +139,52 @@ def test_dst_exists_if_src_copied_as_absolute(vfs):
     """
     vfs.call_copy(src=vfs.srcA.absolute(), dst="dstA")
     assert (vfs.root_dir / "dstA").exists()
+
+
+@pytest.mark.parametrize(
+    "relative_path",
+    [".", "..", "SrcDir"],
+    ids=["this dir", "parent dir", "child dir"],
+)
+def test_code_if_dst_copied_as_relative(vfs, relative_path):
+    """
+    Verify cp returns code 0 on success if destination is relative path
+    """
+    dst_path = f"{relative_path}/dstA"
+    (vfs.root_dir / dst_path).parent.mkdir(parents=True, exist_ok=True)
+    code, *_ = vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
+    assert code == 0
+
+
+@pytest.mark.parametrize(
+    "relative_path",
+    [".", "..", "SrcDir"],
+    ids=["this dir", "parent dir", "child dir"],
+)
+def test_dst_exists_if_dst_copied_as_relative(vfs, relative_path):
+    """
+    Verify destination file created on success if destination is relative path
+    """
+    dst_path = f"{relative_path}/dstA"
+    (vfs.root_dir / dst_path).parent.mkdir(parents=True, exist_ok=True)
+    vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
+    assert (vfs.root_dir / relative_path / "dstA").exists()
+
+
+def test_code_if_dst_copied_as_absolute(vfs):
+    """
+    Verify cp returns code 0 on success if destination is absolute path
+    """
+    dst_path = (vfs.root_dir / "dstA").absolute()
+    code, *_ = vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
+    assert code == 0
+
+
+def test_dst_exists_if_dst_copied_as_absolute(vfs):
+    """
+    Verify destination file is created on success if destination is absolute
+    path
+    """
+    dst_path = (vfs.root_dir / "dstA").absolute()
+    code, *_ = vfs.call_copy(src=vfs.srcA.name, dst=dst_path)
+    assert dst_path.exists()

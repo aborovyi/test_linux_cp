@@ -42,11 +42,11 @@ Default testing structure should be the following:
         [X] above directory
         [X] below directory
     [X] Copy single file by src absolute path
-    [ ] Copy single file by dst relative path
-        [ ] this directory
-        [ ] above directory
-        [ ] below directory
-    [ ] Copy single file by dst absolute path
+    [X] Copy single file by dst relative path
+        [X] this directory
+        [X] above directory
+        [X] below directory
+    [X] Copy single file by dst absolute path
 
     [ ] Copy single file to destination directory
       |Done | Src File | DST Dir | DST file | Result               |
