@@ -52,6 +52,10 @@ class DirStructure:
         """
         Run system `cp` app.
         """
+        if not isinstance(src, str):
+            src = str(src)
+        if not isinstance(dst, str):
+            dst = str(dst)
         subp = subprocess.run(
             " ".join(
                 [f"cd {self.root_dir.absolute()};cp", flags, src, dst]

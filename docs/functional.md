@@ -41,7 +41,7 @@ Default testing structure should be the following:
         [X] this directory
         [X] above directory
         [X] below directory
-    [ ] Copy single file by src absolute path
+    [X] Copy single file by src absolute path
     [ ] Copy single file by dst relative path
         [ ] this directory
         [ ] above directory

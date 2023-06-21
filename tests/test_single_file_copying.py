@@ -122,3 +122,20 @@ def test_dst_exists_if_src_copied_as_relative(vfs, path_prefix):
     src_file.write_text("Thanks for all the fish!")
     vfs.call_copy(src=src_path, dst="dstA")
     assert (vfs.root_dir / "dstA").exists()
+
+
+def test_code_if_src_copied_as_absolute(vfs):
+    """
+    Verify cp returns code 0 on success if src is copied as absolute path
+    """
+    code, *_ = vfs.call_copy(src=vfs.srcA.absolute(), dst="dstA")
+    assert code == 0
+
+
+def test_dst_exists_if_src_copied_as_absolute(vfs):
+    """
+    Verify cp creates destination file on success if src is copied as absolute
+    path
+    """
+    vfs.call_copy(src=vfs.srcA.absolute(), dst="dstA")
+    assert (vfs.root_dir / "dstA").exists()
