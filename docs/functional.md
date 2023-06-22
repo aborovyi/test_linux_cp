@@ -81,7 +81,6 @@ Default testing structure should be the following:
 [ ] Single-flag cases
 
   [ ] -a, --archive -> copies all src structure (use *rc* mask) to DST dir;
-  [ ] --attributes-only -> no effect for new and existing files;
   [X] --backup:
     [X] none, off:
         [X] No destination file -> Destination file appears, no backups;
@@ -100,6 +99,6 @@ Default testing structure should be the following:
         [X] No destination file -> Destination file appears, no backups;
         [X] One destination file -> One destination and one backup file will be created;
         [X] One destination and one backup -> One destination and one backup will be created.
-  [ ] -n:
-     [ ] DST missing -> DST is created
-     [ ] DST exists -> DST remains
+  [X] -n:
+     [X] DST missing -> DST is created
+     [X] DST exists -> DST remains
