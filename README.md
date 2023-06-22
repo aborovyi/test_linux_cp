@@ -8,11 +8,11 @@ This might be raw python code, but using of some test frameworks would be a
 plus.
 
 ## Notes
-The `cp` command has an extended list op options including their combination.
-This testing repo contains a small subset of them and has an ability to extend
+The `cp` command has an extended list of options including their combination.
+This testing repo contains a small subset of them and has the ability to extend
 over time.
 
-Only few simple flags were tested here just to demonstrate the testing approach.
+Only a few simple flags were tested here to demonstrate the testing approach.
 
 ## Installation
 
@@ -26,12 +26,12 @@ follow [installation instructions](https://python-poetry.org/docs/#installation)
 git clone https://github.com/aborovyi/test_linux_cp.git
 ```
 
-2. Install project dependenicies:
+2. Install project dependencies:
 ```
 poetry install
 ```
 
-3. Grant user to run chattr command w/o password, to execute chattr tests
+3. Grant user to run `chattr` command w/o password, to execute `chattr` tests
 
 ```
 sudo /bin/bash -c "echo $(whoami) ALL=NOPASSWD: $(which chattr) >> /etc/sudoers"
