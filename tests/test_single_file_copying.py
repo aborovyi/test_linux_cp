@@ -273,30 +273,32 @@ def test_msg_error_on_missing_dst_dir(vfs):
 
 
 @pytest.mark.chattr
-def test_code_on_dst_file_has_attr_i(vfs):
+@pytest.mark.parametrize("attr", ["i", "a"])
+def test_code_on_dst_file_has_attr(vfs, attr):
     """
     Verify cp returns status code 1, if destination file exists and has
-    attribute flag "i".
+    attribute flag "{attr}".
     """
     dst_file = vfs.root_dir / "dstA"
     dst_file.write_text("Autobots, roll out!")
-    vfs.set_attr(file=dst_file, attr="+i")
+    vfs.set_attr(file=dst_file, attr=f"+{attr}")
     code, *_ = vfs.call_copy(src=vfs.srcA, dst=dst_file)
-    vfs.set_attr(file=dst_file, attr="-i")
+    vfs.set_attr(file=dst_file, attr=f"-{attr}")
     assert code == 1
 
 
 @pytest.mark.chattr
-def test_msg_on_dst_file_has_attr_i(vfs):
+@pytest.mark.parametrize("attr", ["i", "a"])
+def test_msg_on_dst_file_has_attr(vfs, attr):
     """
     Verify cp reports an error if destination file exists and has attribute
-    flag "i".
+    flag "{attr}".
     """
     dst_file = vfs.root_dir / "dstA"
     dst_file.write_text("Autobots, roll out!")
-    vfs.set_attr(file=dst_file, attr="+i")
+    vfs.set_attr(file=dst_file, attr=f"+{attr}")
     *_, stderr = vfs.call_copy(src=vfs.srcA, dst=dst_file)
-    vfs.set_attr(file=dst_file, attr="-i")
+    vfs.set_attr(file=dst_file, attr=f"-{attr}")
     assert stderr == bytes(
         f"cp: cannot create regular file '{dst_file}': "
         "Operation not permitted\n",
@@ -305,16 +307,17 @@ def test_msg_on_dst_file_has_attr_i(vfs):
 
 
 @pytest.mark.chattr
-def test_dst_remains_on_dst_file_has_attr_i(vfs):
+@pytest.mark.parametrize("attr", ["i", "a"])
+def test_dst_remains_on_dst_file_has_attr(vfs, attr):
     """
-    Verify cp reports an error if destination file exists and has attribute
-    flag "i".
+    Verify dst content remains as initial, if cp failed tocopy over a file with
+    the flag "{attr}".
     """
     dst_file = vfs.root_dir / "dstA"
     reference_content = "Autobots, roll out!"
     dst_file.write_text(reference_content)
-    vfs.set_attr(file=dst_file, attr="+i")
+    vfs.set_attr(file=dst_file, attr=f"+{attr}")
     vfs.call_copy(src=vfs.srcA, dst=dst_file)
-    vfs.set_attr(file=dst_file, attr="-i")
+    vfs.set_attr(file=dst_file, attr=f"-{attr}")
     dst_content = dst_file.read_text()
     assert dst_content == reference_content

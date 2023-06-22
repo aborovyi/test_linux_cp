@@ -87,8 +87,9 @@ class DirStructure:
         if isinstance(file, str):
             file = Path(file).resolve()
 
+        cmd = f"sudo chattr {attr} {file}"
         subp = subprocess.run(
-            f"sudo chattr {attr} {file}",
+            cmd,
             shell=True,
             capture_output=True,
             check=False,
