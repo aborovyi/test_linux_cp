@@ -7,6 +7,8 @@ Directory structure here is as follows:
     ├── srcA
     └── SrcDir
 """
+import os
+import time
 
 import pytest
 
@@ -321,3 +323,18 @@ def test_dst_remains_on_dst_file_has_attr(vfs, attr):
     vfs.set_attr(file=dst_file, attr=f"-{attr}")
     dst_content = dst_file.read_text()
     assert dst_content == reference_content
+
+
+@pytest.mark.chattr
+def test_src_atime_remains_on_attr_A(vfs):  # pylint: disable=invalid-name
+    """
+    Verify cp won't change atime if src file has "A" attibute set.
+    """
+
+    init_stat = os.stat(vfs.srcA)
+    time.sleep(0.1)
+    vfs.set_attr(file=vfs.srcA, attr="+A")
+    vfs.call_copy(src=vfs.srcA, dst="dstA")
+    vfs.set_attr(file=vfs.srcA, attr="-A")
+    final_stat = os.stat(vfs.srcA)
+    assert init_stat.st_atime_ns == final_stat.st_atime_ns
