@@ -7,6 +7,7 @@ Directory structure here is as follows:
     ├── srcA
     └── SrcDir
 """
+
 import pytest
 
 
@@ -58,7 +59,7 @@ def test_src_replaces_existing_dst(vfs):
     assert src_content == dst_content
 
 
-def test_code_if_src_doesnt_replace_not_readable_dst(vfs):
+def test_code_if_src_doesnt_replace_not_writeable_dst(vfs):
     """
     Verify cp sets return code to 1 while trying to copy file that can not be
     writeable
@@ -70,7 +71,7 @@ def test_code_if_src_doesnt_replace_not_readable_dst(vfs):
     assert code == 1
 
 
-def test_msg_if_src_doesnt_replace_not_readable_dst(vfs):
+def test_msg_if_src_doesnt_replace_not_writeable_dst(vfs):
     """
     Verify cp reports error while trying to copy file that can not be
     writeable
@@ -269,3 +270,51 @@ def test_msg_error_on_missing_dst_dir(vfs):
         f"cp: cannot create regular file '{dst_dir}/': Not a directory\n",
         encoding="utf-8",
     )
+
+
+@pytest.mark.chattr
+def test_code_on_dst_file_has_attr_i(vfs):
+    """
+    Verify cp returns status code 1, if destination file exists and has
+    attribute flag "i".
+    """
+    dst_file = vfs.root_dir / "dstA"
+    dst_file.write_text("Autobots, roll out!")
+    vfs.set_attr(file=dst_file, attr="+i")
+    code, *_ = vfs.call_copy(src=vfs.srcA, dst=dst_file)
+    vfs.set_attr(file=dst_file, attr="-i")
+    assert code == 1
+
+
+@pytest.mark.chattr
+def test_msg_on_dst_file_has_attr_i(vfs):
+    """
+    Verify cp reports an error if destination file exists and has attribute
+    flag "i".
+    """
+    dst_file = vfs.root_dir / "dstA"
+    dst_file.write_text("Autobots, roll out!")
+    vfs.set_attr(file=dst_file, attr="+i")
+    *_, stderr = vfs.call_copy(src=vfs.srcA, dst=dst_file)
+    vfs.set_attr(file=dst_file, attr="-i")
+    assert stderr == bytes(
+        f"cp: cannot create regular file '{dst_file}': "
+        "Operation not permitted\n",
+        encoding="utf-8",
+    )
+
+
+@pytest.mark.chattr
+def test_dst_remains_on_dst_file_has_attr_i(vfs):
+    """
+    Verify cp reports an error if destination file exists and has attribute
+    flag "i".
+    """
+    dst_file = vfs.root_dir / "dstA"
+    reference_content = "Autobots, roll out!"
+    dst_file.write_text(reference_content)
+    vfs.set_attr(file=dst_file, attr="+i")
+    vfs.call_copy(src=vfs.srcA, dst=dst_file)
+    vfs.set_attr(file=dst_file, attr="-i")
+    dst_content = dst_file.read_text()
+    assert dst_content == reference_content

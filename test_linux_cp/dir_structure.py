@@ -4,9 +4,10 @@ This should be (ideally a separate) package, but for the demo purpose let's
 stop here.
 """
 
-from pathlib import Path
-import subprocess
 import os
+import subprocess
+from pathlib import Path
+from typing import Union
 
 
 class DirStructure:
@@ -75,6 +76,24 @@ class DirStructure:
         self._original_env = os.environ.copy()
         os.putenv("LANG", lang)
         os.putenv("LC_ALL", lang)
+
+    def set_attr(self, file: Union[str, Path] = "", attr: str = ""):
+        """
+        Set attribute to the file, using chattr command.
+
+        This functionality requires either running tests from root user, or
+        adding NOPASSWD option to /etc/sudoers. See README.md for more details.
+        """
+        if isinstance(file, str):
+            file = Path(file).resolve()
+
+        subp = subprocess.run(
+            f"sudo chattr {attr} {file}",
+            shell=True,
+            capture_output=True,
+            check=False,
+        )
+        return subp
 
     def clean(self):
         """

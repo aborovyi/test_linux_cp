@@ -16,6 +16,11 @@ pylint = "^2.17.4"
 [tool.pytest]
 testpaths = ["tests"]
 
+[tool.pytest.ini_options]
+markers = [
+    "chattr: tests that contain calls to chattr command"
+]
+
 [tool.isort]
 profile = "black"
 

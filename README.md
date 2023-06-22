@@ -24,7 +24,13 @@ git clone https://github.com/aborovyi/test_linux_cp.git
 poetry install
 ```
 
-3. Run tests:
+3. Grant user to run chattr command w/o password, to execute chattr tests
+
+    ```
+    sudo /bin/bash -c "echo $(whoami) ALL=NOPASSWD: $(which chattr) >> /etc/sudoers"
+    ```
+
+4. Run tests:
 ```
 poetry run pytest
 ```

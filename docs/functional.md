@@ -63,6 +63,11 @@ Default testing structure should be the following:
       | [X] | exists  | missing | missing |  cp reports an error  |
       | [X] | missing | exists  | missing |  cp reports an error  |
 
+    [ ] Copy single file with attributes:
+        [X] dst_file has attr "i" - immutable
+        [ ] dst_file has attr "a" - append
+        [ ] src_file has attribute "A" - atime attribute doesn't modified
+
     [X] Copy multiple files by mask to destination dir:
       [X] Mask applies -> files under the mask are copied
       [X] Mask doesn't apply -> no files are copied
