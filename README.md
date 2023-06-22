@@ -33,9 +33,9 @@ poetry install
 
 3. Grant user to run chattr command w/o password, to execute chattr tests
 
-    ```
-    sudo /bin/bash -c "echo $(whoami) ALL=NOPASSWD: $(which chattr) >> /etc/sudoers"
-    ```
+```
+sudo /bin/bash -c "echo $(whoami) ALL=NOPASSWD: $(which chattr) >> /etc/sudoers"
+```
 
 4. Run tests:
 ```
