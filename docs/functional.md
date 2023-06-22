@@ -25,7 +25,7 @@ Default testing structure should be the following:
   [X] cp with no arguments
   [X] cp with source argument only
 
-[ ] No flags:
+[X] No flags:
 
     [X] Copy single file to destination file
       |Done | Src File | Destination | Result                               |
@@ -82,23 +82,24 @@ Default testing structure should be the following:
 
   [ ] -a, --archive -> copies all src structure (use *rc* mask) to DST dir;
   [ ] --attributes-only -> no effect for new and existing files;
-  [ ] --backup:
-    [ ] none, off:
-        [ ] No destination file -> Destination file appears, no backups;
-        [ ] Destination file exists -> Destination file updates, no backups;
-    [ ] numbered, t:
-        [ ] No destination file -> Destination file appears, no backups;
-        [ ] Destination file exists -> Destination file updates, backup appears;
-        [ ] Destination file + backup exist -> Destination file updates, new backup appears;
-    [ ] existing, nil:
-        [ ] No destination file -> Destination file will be created, no backups;
-        [ ] Destination file exists -> Destination file + simple backup will be created;
-        [ ] Destination + numbered backup exist -> Destination + another numbered backup will be created;
-        [ ] Destination + simple backup exist -> Destination + simple backup exist.
-    [ ] simple, never:
-        [ ] No destination files -> One destination file is created;
-        [ ] One destination file -> One destination and one backup file will be created;
-        [ ] One destination and one backup -> One destination and one backup will be created.
+  [X] --backup:
+    [X] none, off:
+        [X] No destination file -> Destination file appears, no backups;
+        [X] Destination file exists -> Destination file updates, no backups;
+    [X] numbered, t:
+        [X] No destination file -> Destination file appears, no backups;
+        [X] Destination file exists -> Destination file updates, backup appears;
+        [X] Backup exist -> Destination file created, backup remains;
+        [X] Destination file + backup exist -> Destination file updates, new backup appears;
+    [X] existing, nil:
+        [X] No destination file -> Destination file appears, no backups;
+        [X] Destination file exists -> Destination file + simple backup will be created;
+        [X] Destination + numbered backup exist -> Destination + another numbered backup will be created;
+        [X] Destination + simple backup exist -> Destination + simple backup exist.
+    [X] simple, never:
+        [X] No destination file -> Destination file appears, no backups;
+        [X] One destination file -> One destination and one backup file will be created;
+        [X] One destination and one backup -> One destination and one backup will be created.
   [ ] -n:
      [ ] DST missing -> DST is created
      [ ] DST exists -> DST remains
