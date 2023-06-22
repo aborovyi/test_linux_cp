@@ -7,6 +7,13 @@ command.
 This might be raw python code, but using of some test frameworks would be a
 plus.
 
+## Notes
+The `cp` command has an extended list op options including their combination.
+This testing repo contains a small subset of them and has an ability to extend
+over time.
+
+Only few simple flags were tested here just to demonstrate the testing approach.
+
 ## Installation
 
 This repo is a try to get more familiar with the poetry. To run poetry locally
