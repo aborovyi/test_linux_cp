@@ -78,9 +78,9 @@ Default testing structure should be the following:
       [X] Copy directory to non-existing directory with -r-> success
       [X] Copy directory to non-existing directory skipping -r-> failure
 
-[ ] Single-flag cases
+[X] Single-flag cases
 
-  [ ] -a, --archive -> copies all src structure (use *rc* mask) to DST dir;
+  [X] -a, --archive -> copies all src structure (use *rc* mask) to DST dir;
   [X] --backup:
     [X] none, off:
         [X] No destination file -> Destination file appears, no backups;
